@@ -1,15 +1,41 @@
 import React, { Component } from "react";
 import Student from "../student/student";
 
+import { CardDeck } from "react-bootstrap";
+
 class Students extends Component {
   constructor(props) {
     super(props);
     this.state = {
       students: [
-        { name: "st1" },
-        { name: "st2" },
-        { name: "st3" },
-        { name: "st4" }
+        {
+          firstName: "Harvey",
+          lastName: "Specter",
+          since: "",
+          photo: "",
+          hobbies: ""
+        },
+        {
+          firstName: "Michel",
+          lastName: "Ross",
+          since: "",
+          photo: "",
+          hobbies: ""
+        },
+        {
+          firstName: "Dona",
+          lastName: "Paulsan",
+          since: "",
+          photo: "",
+          hobbies: ""
+        },
+        {
+          firstName: "Rachel",
+          lastName: "Zane",
+          since: "",
+          photo: "",
+          hobbies: ""
+        }
       ]
     };
   }
@@ -17,9 +43,11 @@ class Students extends Component {
     return (
       <div>
         <h1>Students</h1>
-        {this.state.students.map(() => (
-          <Student />
-        ))}
+        <CardDeck>
+          {this.state.students.map(student => (
+            <Student card={student} />
+          ))}
+        </CardDeck>
       </div>
     );
   }
