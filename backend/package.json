@@ -1,0 +1,11 @@
+{
+  "name": "studentappserver",
+  "version": "1.0.0",
+  "description": "backend server for react student app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "pratiknagpure",
+  "license": "ISC"
+}
