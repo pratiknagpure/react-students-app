@@ -4,6 +4,8 @@ import CreateEditStudent from "../student/createEditStudent";
 
 import { CardDeck, Modal, Button } from "react-bootstrap";
 
+import "./students.css";
+
 class Students extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +40,8 @@ class Students extends Component {
           hobbies: ""
         }
       ],
-      showEdit: false
+      showEdit: false,
+      actionType: "Add"
     };
   }
   handleClose() {
@@ -48,34 +51,108 @@ class Students extends Component {
   handleShow() {
     this.setState({ showEdit: true });
   }
+
+  handleAddStudent() {
+    this.setState({ showEdit: true, actionType: "Add" });
+  }
+  handleEditStudent() {
+    this.setState({ showEdit: true, actionType: "Edit" });
+  }
+
+  handleCreateEdit(details) {
+    const students = [...this.state.students, details];
+    this.setState({
+      students
+    });
+    this.handleClose();
+  }
+
   render() {
     return (
       <div>
-        <h1>Students</h1>
-        <CardDeck>
-          {this.state.students.map(student => (
-            <Student
-              card={student}
-              handleClose={() => this.handleClose()}
-              handleShow={() => this.handleShow()}
-            />
-          ))}
-        </CardDeck>
-        <Modal show={this.state.showEdit} onHide={this.handleClose}>
+        <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+          <a className="navbar-brand" href="#">
+            Students
+          </a>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
+
+          <div className="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item active">
+                <a className="nav-link" href="#">
+                  <span className="sr-only">(current)</span>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#" />
+              </li>
+              <li className="nav-item">
+                <a
+                  className="nav-link disabled"
+                  href="#"
+                  tabIndex="-1"
+                  aria-disabled="true"
+                />
+              </li>
+            </ul>
+            <form className="form-inline my-2 my-lg-0">
+              <input
+                className="form-control mr-sm-2"
+                type="text"
+                placeholder="Search Students"
+                aria-label="Search"
+              />
+              <button className="btn btn-secondary my-2 my-sm-0" type="submit">
+                Search
+              </button>
+            </form>
+          </div>
+        </nav>
+        <section className="student_sec">
+          <div className="container">
+            <div className="add-student row">
+              <Button
+                className="btn btn-lg btn-primary  float-left"
+                onClick={this.handleAddStudent.bind(this)}
+              >
+                Add
+              </Button>
+            </div>
+
+            <CardDeck>
+              {this.state.students.map(student => (
+                <div key={student.firstName}>
+                  <Student
+                    card={student}
+                    handleClose={() => this.handleClose()}
+                    handleShow={() => this.handleEditStudent()}
+                    actionType={this.state.actionType}
+                  />
+                </div>
+              ))}
+            </CardDeck>
+          </div>
+        </section>
+
+        <Modal show={this.state.showEdit} onHide={this.handleClose.bind(this)}>
           <Modal.Header closeButton>
-            <Modal.Title>Edit Details</Modal.Title>
+            <Modal.Title>{this.state.actionType} Student</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <CreateEditStudent />
+            <CreateEditStudent
+              handleCreateEdit={details => this.handleCreateEdit(details)}
+            />
           </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose.bind(this)}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={this.handleClose.bind(this)}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
         </Modal>
       </div>
     );
