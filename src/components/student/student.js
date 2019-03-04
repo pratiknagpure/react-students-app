@@ -26,7 +26,10 @@ class Student extends Component {
             >
               Edit
             </Button>
-            <Button variant="primary" onClick={() => this.props.handleShow()}>
+            <Button
+              variant="primary"
+              onClick={() => this.props.handleDelete(this.props.card)}
+            >
               Delete
             </Button>
           </Card.Body>

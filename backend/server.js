@@ -9,10 +9,23 @@ const app = express();
 const router = express.Router();
 
 // this is our MongoDB database
-const dbRoute = "";
+const dbRoute =
+  "mongodb+srv://pratik:XgPbcZR6C7q9ZkDq@app-fqtc9.mongodb.net/test3?retryWrites=true";
 
 // connects our back end code with the database
 mongoose.connect(dbRoute, { useNewUrlParser: true });
+const Schema = mongoose.Schema;
+
+const studentSchema = new Schema({
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  }
+});
 
 let db = mongoose.connection;
 
@@ -27,14 +40,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
 
+app.get("/", (req, res) => {
+  res.send("Server Works");
+});
+
+app.get("/getStudents", (req, res) => {
+  Data.find((err, data) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true, data: data });
+  });
+});
+
 // this is our get method
 // this method fetches all available data in our database
-// router.get("/getData", (req, res) => {
-//   Data.find((err, data) => {
-//     if (err) return res.json({ success: false, error: err });
-//     return res.json({ success: true, data: data });
-//   });
-// });
+router.get("/getStudents", (req, res) => {
+  Data.find((err, data) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true, data: data });
+  });
+});
 
 // // this is our update method
 // // this method overwrites existing data in our database

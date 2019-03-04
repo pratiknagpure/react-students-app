@@ -52,6 +52,15 @@ class Students extends Component {
     this.setState({ showEdit: true });
   }
 
+  handleDelete(student) {
+    const filtered = this.state.students.filter(std => {
+      return std.firstName !== student.firstName;
+    });
+    this.setState({
+      students: filtered
+    });
+  }
+
   handleAddStudent() {
     this.setState({ showEdit: true, actionType: "Add" });
   }
@@ -71,7 +80,7 @@ class Students extends Component {
     return (
       <div>
         <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="nav/">
             Students
           </a>
           <button
@@ -89,17 +98,17 @@ class Students extends Component {
           <div className="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="link">
                   <span className="sr-only">(current)</span>
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#" />
+                <a className="nav-link" href="hjk" />
               </li>
               <li className="nav-item">
                 <a
                   className="nav-link disabled"
-                  href="#"
+                  href="kl"
                   tabIndex="-1"
                   aria-disabled="true"
                 />
@@ -136,6 +145,7 @@ class Students extends Component {
                     card={student}
                     handleClose={() => this.handleClose()}
                     handleShow={() => this.handleEditStudent()}
+                    handleDelete={student => this.handleDelete(student)}
                     actionType={this.state.actionType}
                   />
                 </div>

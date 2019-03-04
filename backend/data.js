@@ -5,7 +5,11 @@ const Schema = mongoose.Schema;
 const DataSchema = new Schema(
   {
     id: Number,
-    message: String
+    firstName: String,
+    lastName: String,
+    birthDate: String,
+    photo: String,
+    hobbies: String
   },
   { timestamps: true }
 );
