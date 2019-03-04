@@ -15,10 +15,7 @@ class Student extends Component {
             <Card.Title>
               {card.firstName} {card.lastName}
             </Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
+            <Card.Text>{card.hobbies}</Card.Text>
             <Button
               className="edit_btns"
               variant="primary"

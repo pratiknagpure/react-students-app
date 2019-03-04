@@ -10,40 +10,22 @@ class Students extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      students: [
-        {
-          firstName: "Harvey",
-          lastName: "Specter",
-          since: "",
-          photo: "",
-          hobbies: ""
-        },
-        {
-          firstName: "Michel",
-          lastName: "Ross",
-          since: "",
-          photo: "",
-          hobbies: ""
-        },
-        {
-          firstName: "Dona",
-          lastName: "Paulsan",
-          since: "",
-          photo: "",
-          hobbies: ""
-        },
-        {
-          firstName: "Rachel",
-          lastName: "Zane",
-          since: "",
-          photo: "",
-          hobbies: ""
-        }
-      ],
+      students: [],
       showEdit: false,
       actionType: "Add"
     };
   }
+
+  componentDidMount() {
+    this.getDataFromDb();
+  }
+
+  getDataFromDb() {
+    fetch("http://localhost:3001/api/getStudents")
+      .then(data => data.json())
+      .then(res => this.setState({ students: res.data }));
+  }
+
   handleClose() {
     this.setState({ showEdit: false });
   }
@@ -140,7 +122,7 @@ class Students extends Component {
 
             <CardDeck>
               {this.state.students.map(student => (
-                <div key={student.firstName}>
+                <div key={student._id}>
                   <Student
                     card={student}
                     handleClose={() => this.handleClose()}
