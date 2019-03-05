@@ -102,10 +102,21 @@ router.get("/getStudents", (req, res) => {
 });
 
 router.get("/searchStudents/:searchKey", (req, res) => {
-  Student.find({ firstName: /.*req.params.searchKey.*/ }, (err, data) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true, data: data });
-  });
+  const key = req.params.searchKey;
+  if (key !== "null") {
+    Student.find(
+      { firstName: { $regex: `^${key}.*`, $options: "si" } },
+      (err, data) => {
+        if (err) return res.json({ success: false, error: err });
+        return res.json({ success: true, data: data });
+      }
+    );
+  } else {
+    Student.find((err, data) => {
+      if (err) return res.json({ success: false, error: err });
+      return res.json({ success: true, data: data });
+    });
+  }
 });
 
 // this is our update method

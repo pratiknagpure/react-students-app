@@ -133,7 +133,7 @@ class Students extends Component {
     }
   }
   searchStudents(e) {
-    const searchKey = e.target.value;
+    const searchKey = e.target.value ? e.target.value : null;
     fetch("http://localhost:3001/api/searchStudents/" + searchKey)
       .then(data => data.json())
       .then(res => this.setState({ students: res.data }));
