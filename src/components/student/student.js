@@ -9,7 +9,7 @@ class Student extends Component {
 
     return (
       <div className="student-card">
-        <Card style={{ width: "18rem", height: "22rem" }}>
+        <Card style={{ width: "18rem" }}>
           <Card.Img
             style={{ width: "18rem", height: "14rem" }}
             variant="top"

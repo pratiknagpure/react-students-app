@@ -11,7 +11,8 @@ class CreateEditStudent extends Component {
         firstName: "",
         lastName: "",
         birthDate: "",
-        hobbies: ""
+        hobbies: "",
+        photo: ""
       };
     }
   }
@@ -37,7 +38,8 @@ class CreateEditStudent extends Component {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       birthDate: this.state.birthDate,
-      hobbies: this.state.hobbies
+      hobbies: this.state.hobbies,
+      photo: this.state.photo
     };
     this.props.handleCreateEdit(details);
   }
@@ -117,14 +119,14 @@ class CreateEditStudent extends Component {
               </div>
               <div className="form-group">
                 <label className="col-md-3 control-label" htmlFor="photo">
-                  Photo
+                  Photo URL
                 </label>
                 <div className="col-md-9">
                   <input
                     id="photo"
                     name="photo"
-                    type="file"
-                    placeholder="Upload photo"
+                    type="text"
+                    placeholder="add photo url here"
                     className="form-control"
                     value={this.state.photo}
                     onChange={this.handleFieldChange.bind(this)}

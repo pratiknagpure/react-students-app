@@ -122,7 +122,7 @@ router.delete("/deleteStudent", (req, res) => {
 router.post("/putStudent", (req, res) => {
   let student = new Student();
 
-  const { id, firstName, lastName, hobbies, birthDate } = req.body;
+  const { id, firstName, lastName, hobbies, birthDate, photo } = req.body;
 
   if (!id && id !== 0) {
     return res.json({
@@ -136,6 +136,7 @@ router.post("/putStudent", (req, res) => {
   student.lastName = lastName;
   student.hobbies = hobbies;
   student.birthDate = birthDate;
+  student.photo = photo;
 
   student.save(err => {
     if (err) return res.json({ success: false, error: err });
