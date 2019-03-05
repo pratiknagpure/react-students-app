@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
-const Data = require("./data");
+const Student = require("./data");
 
 const API_PORT = 3001;
 const app = express();
@@ -19,16 +19,7 @@ var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => console.log("connected to the database"));
 
-const studentSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  birthDate: String,
-  hobbies: String,
-  photo: String
-});
-
-const student = mongoose.model("Student", studentSchema);
-
+// loading some data to start
 const students = [
   {
     firstName: "Harvey",
@@ -60,7 +51,7 @@ const students = [
   }
 ];
 
-student.create(students, function(err, jellybean, snickers) {});
+Student.create(students, function(err, jellybean, snickers) {});
 
 // (optional) only made for logging and
 // bodyParser, parses the request body to be a readable json format
@@ -99,7 +90,7 @@ app.get("/", (req, res) => {
 // this is our get method
 // this method fetches all available data in our database
 router.get("/getStudents", (req, res) => {
-  student.find((err, data) => {
+  Student.find((err, data) => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true, data: data });
   });
@@ -107,9 +98,9 @@ router.get("/getStudents", (req, res) => {
 
 // this is our update method
 // this method overwrites existing data in our database
-router.post("/updateData", (req, res) => {
-  const { id, update } = req.body;
-  Data.findOneAndUpdate(id, update, err => {
+router.post("/updateStudent", (req, res) => {
+  const { _id, update } = req.body;
+  Student.findOneAndUpdate(_id, update, err => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });
   });
@@ -117,9 +108,9 @@ router.post("/updateData", (req, res) => {
 
 // this is our delete method
 // this method removes existing data in our database
-router.delete("/deleteData", (req, res) => {
-  const { id } = req.body;
-  Data.findOneAndDelete(id, err => {
+router.delete("/deleteStudent", (req, res) => {
+  const { _id } = req.body;
+  Student.findOneAndDelete(_id, err => {
     if (err) return res.send(err);
     return res.json({ success: true });
   });
@@ -127,20 +118,25 @@ router.delete("/deleteData", (req, res) => {
 
 // this is our create methid
 // this method adds new data in our database
-router.post("/putData", (req, res) => {
-  let data = new Data();
+router.post("/putStudent", (req, res) => {
+  let student = new Student();
 
-  const { id, message } = req.body;
+  const { id, firstName, lastName, hobbies, birthDate } = req.body;
 
-  if ((!id && id !== 0) || !message) {
+  if (!id && id !== 0) {
     return res.json({
       success: false,
       error: "INVALID INPUTS"
     });
   }
-  data.message = message;
-  data.id = id;
-  data.save(err => {
+
+  student.firstName = firstName;
+  student.id = id;
+  student.lastName = lastName;
+  student.hobbies = hobbies;
+  student.birthDate = birthDate;
+
+  student.save(err => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });
   });

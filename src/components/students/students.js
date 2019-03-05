@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Student from "../student/student";
 import CreateEditStudent from "../student/createEditStudent";
+import axios from "axios";
 
 import { CardDeck, Modal, Button } from "react-bootstrap";
 
@@ -35,12 +36,26 @@ class Students extends Component {
   }
 
   handleDelete(student) {
-    const filtered = this.state.students.filter(std => {
-      return std.firstName !== student.firstName;
+    let objIdToDelete = null;
+    this.state.students.forEach(dat => {
+      if (dat._id == student._id) {
+        objIdToDelete = dat._id;
+      }
     });
-    this.setState({
-      students: filtered
-    });
+
+    axios
+      .delete("http://localhost:3001/api/deleteStudent", {
+        data: {
+          _id: objIdToDelete
+        }
+      })
+      .then(res => {
+        this.getDataFromDb();
+        alert("deleted");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   handleAddStudent() {
@@ -50,12 +65,60 @@ class Students extends Component {
     this.setState({ showEdit: true, actionType: "Edit" });
   }
 
-  handleCreateEdit(details) {
-    const students = [...this.state.students, details];
-    this.setState({
-      students
+  addStudent(details) {
+    let currentIds = this.state.students.map(data => data.id);
+    let idToBeAdded = 0;
+    while (currentIds.includes(idToBeAdded)) {
+      ++idToBeAdded;
+    }
+
+    axios
+      .post("http://localhost:3001/api/putStudent", {
+        firstName: details.firstName,
+        lastName: details.lastName,
+        hobbies: details.hobbies,
+        photo: details.photo,
+        birthDate: details.birthDate
+      })
+      .then(res => {
+        this.handleClose();
+        this.getDataFromDb();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  updateStudent(details) {
+    let objIdToUpdate = null;
+    this.state.students.forEach(dat => {
+      if (dat._id == details._id) {
+        objIdToUpdate = dat._id;
+      }
     });
-    this.handleClose();
+
+    axios
+      .post("http://localhost:3001/api/updateStudent", {
+        _id: objIdToUpdate,
+        update: details
+      })
+      .then(res => {
+        this.handleClose();
+        this.getDataFromDb();
+        alert("student data updated");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  handleCreateEdit(details) {
+    let actionType = this.state.actionType;
+    if (actionType == "Add") {
+      this.addStudent(details);
+    } else {
+      this.updateStudent(details);
+    }
   }
 
   render() {
