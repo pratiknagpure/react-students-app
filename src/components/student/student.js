@@ -20,9 +20,9 @@ class Student extends Component {
               {card.firstName} {card.lastName}
             </Card.Title>
             <Card.Text>
-              DOB :{card.birthDate}
+              DOB : {card.birthDate}
               <br />
-              {card.hobbies}
+              Hobbies: {card.hobbies}
             </Card.Text>
             <Button
               className="edit_btns"
