@@ -13,7 +13,8 @@ class Students extends Component {
     this.state = {
       students: [],
       showEdit: false,
-      actionType: "Add"
+      actionType: "Add",
+      editStudentData: null
     };
   }
 
@@ -51,7 +52,7 @@ class Students extends Component {
       })
       .then(res => {
         this.getDataFromDb();
-        alert("deleted");
+        // alert("deleted");
       })
       .catch(err => {
         console.log(err);
@@ -59,10 +60,14 @@ class Students extends Component {
   }
 
   handleAddStudent() {
-    this.setState({ showEdit: true, actionType: "Add" });
+    this.setState({ showEdit: true, actionType: "Add", editStudentData: null });
   }
-  handleEditStudent() {
-    this.setState({ showEdit: true, actionType: "Edit" });
+  handleEditStudent(student) {
+    this.setState({
+      showEdit: true,
+      actionType: "Edit",
+      editStudentData: student
+    });
   }
 
   addStudent(details) {
@@ -78,7 +83,8 @@ class Students extends Component {
         lastName: details.lastName,
         hobbies: details.hobbies,
         photo: details.photo,
-        birthDate: details.birthDate
+        birthDate: details.birthDate,
+        id: idToBeAdded
       })
       .then(res => {
         this.handleClose();
@@ -189,7 +195,7 @@ class Students extends Component {
                   <Student
                     card={student}
                     handleClose={() => this.handleClose()}
-                    handleShow={() => this.handleEditStudent()}
+                    handleShow={student => this.handleEditStudent(student)}
                     handleDelete={student => this.handleDelete(student)}
                     actionType={this.state.actionType}
                   />
@@ -206,6 +212,7 @@ class Students extends Component {
           <Modal.Body>
             <CreateEditStudent
               handleCreateEdit={details => this.handleCreateEdit(details)}
+              student={this.state.editStudentData}
             />
           </Modal.Body>
         </Modal>

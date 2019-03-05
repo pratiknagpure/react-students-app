@@ -19,7 +19,7 @@ class Student extends Component {
             <Button
               className="edit_btns"
               variant="primary"
-              onClick={() => this.props.handleShow()}
+              onClick={() => this.props.handleShow(this.props.card)}
             >
               Edit
             </Button>

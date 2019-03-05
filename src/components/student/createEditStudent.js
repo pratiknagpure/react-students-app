@@ -3,12 +3,21 @@ import React, { Component } from "react";
 class CreateEditStudent extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      firstName: "",
-      lastName: "",
-      birthDate: "",
-      hobbies: ""
-    };
+    const student = props.student;
+    if (student) {
+      this.state = student;
+    } else {
+      this.state = {
+        firstName: "",
+        lastName: "",
+        birthDate: "",
+        hobbies: ""
+      };
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps.student);
   }
 
   handleFieldChange(event) {
