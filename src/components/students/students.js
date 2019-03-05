@@ -39,15 +39,15 @@ class Students extends Component {
   handleDelete(student) {
     let objIdToDelete = null;
     this.state.students.forEach(dat => {
-      if (dat._id === student._id) {
-        objIdToDelete = dat._id;
+      if (dat.id === student.id) {
+        objIdToDelete = dat.id;
       }
     });
 
     axios
       .delete("http://localhost:3001/api/deleteStudent", {
         data: {
-          _id: objIdToDelete
+          id: objIdToDelete
         }
       })
       .then(res => {
@@ -98,20 +98,26 @@ class Students extends Component {
   updateStudent(details) {
     let objIdToUpdate = null;
     this.state.students.forEach(dat => {
-      if (dat._id === details._id) {
-        objIdToUpdate = dat._id;
+      if (dat.id === details.id) {
+        objIdToUpdate = dat.id;
       }
     });
 
     axios
       .post("http://localhost:3001/api/updateStudent", {
-        _id: objIdToUpdate,
-        update: details
+        id: objIdToUpdate,
+        update: {
+          firstName: details.firstName,
+          lastName: details.lastName,
+          birthDate: details.birthDate,
+          hobbies: details.hobbies,
+          photo: details.photo
+        }
       })
       .then(res => {
         this.handleClose();
         this.getDataFromDb();
-        alert("student data updated");
+        //alert("student data updated");
       })
       .catch(err => {
         console.log(err);
@@ -125,6 +131,12 @@ class Students extends Component {
     } else {
       this.updateStudent(details);
     }
+  }
+  searchStudents(e) {
+    const searchKey = e.target.value;
+    fetch("http://localhost:3001/api/searchStudents/" + searchKey)
+      .then(data => data.json())
+      .then(res => this.setState({ students: res.data }));
   }
 
   render() {
@@ -158,10 +170,8 @@ class Students extends Component {
                 type="text"
                 placeholder="Search Students"
                 aria-label="Search"
+                onChange={this.searchStudents.bind(this)}
               />
-              <button className="btn btn-secondary my-2 my-sm-0" type="submit">
-                Search
-              </button>
             </form>
           </div>
         </nav>

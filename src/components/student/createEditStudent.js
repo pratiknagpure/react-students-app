@@ -12,7 +12,8 @@ class CreateEditStudent extends Component {
         lastName: "",
         birthDate: "",
         hobbies: "",
-        photo: ""
+        photo: "",
+        id: ""
       };
     }
   }
@@ -39,7 +40,8 @@ class CreateEditStudent extends Component {
       lastName: this.state.lastName,
       birthDate: this.state.birthDate,
       hobbies: this.state.hobbies,
-      photo: this.state.photo
+      photo: this.state.photo,
+      id: this.state.id
     };
     this.props.handleCreateEdit(details);
   }

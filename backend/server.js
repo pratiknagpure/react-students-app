@@ -27,28 +27,32 @@ const students = [
     birthDate: "1972-01-22",
     photo:
       "https://www.hellomagazine.com/imagenes/film/2018060749261/suits-gabriel-macht-sex-and-the-city-20th-anniversary/0-242-950/Gabriel-Macht-t.jpg",
-    hobbies: "Boxing,Music and vinyl collecting,Cars,Whisky tasting/drinking"
+    hobbies: "Boxing,Music and vinyl collecting,Cars,Whisky tasting/drinking",
+    id: 1
   },
   {
     firstName: "Michel",
     lastName: "Ross",
     birthDate: "1981-08-27",
     photo: "http://www.gstatic.com/tv/thumb/persons/333660/333660_v9_ba.jpg",
-    hobbies: "Cycling, traveling"
+    hobbies: "Cycling, traveling",
+    id: 2
   },
   {
     firstName: "Dona",
     lastName: "Paulsan",
     birthDate: "1972-12-06",
     photo: "http://www.gstatic.com/tv/thumb/persons/207737/207737_v9_ba.jpg",
-    hobbies: "Dressing, art and craft"
+    hobbies: "Dressing, art and craft",
+    id: 3
   },
   {
     firstName: "Rachel",
     lastName: "Zane",
     birthDate: "1981-08-08",
     photo: "http://www.gstatic.com/tv/thumb/persons/291403/291403_v9_bb.jpg",
-    hobbies: "Dressing, art and craft"
+    hobbies: "Dressing, art and craft",
+    id: 4
   }
 ];
 
@@ -97,11 +101,18 @@ router.get("/getStudents", (req, res) => {
   });
 });
 
+router.get("/searchStudents/:searchKey", (req, res) => {
+  Student.find({ firstName: /.*req.params.searchKey.*/ }, (err, data) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true, data: data });
+  });
+});
+
 // this is our update method
 // this method overwrites existing data in our database
 router.post("/updateStudent", (req, res) => {
-  const { _id, update } = req.body;
-  Student.findOneAndUpdate(_id, update, err => {
+  const { id, update } = req.body;
+  Student.findOneAndUpdate({ id }, update, err => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });
   });
@@ -110,8 +121,8 @@ router.post("/updateStudent", (req, res) => {
 // this is our delete method
 // this method removes existing data in our database
 router.delete("/deleteStudent", (req, res) => {
-  const { _id } = req.body;
-  Student.findOneAndDelete(_id, err => {
+  const { id } = req.body;
+  Student.findOneAndDelete({ id }, err => {
     if (err) return res.send(err);
     return res.json({ success: true });
   });
