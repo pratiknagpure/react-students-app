@@ -116,6 +116,23 @@ class CreateEditStudent extends Component {
                 </div>
               </div>
               <div className="form-group">
+                <label className="col-md-3 control-label" htmlFor="photo">
+                  Photo
+                </label>
+                <div className="col-md-9">
+                  <input
+                    id="photo"
+                    name="photo"
+                    type="file"
+                    placeholder="Upload photo"
+                    className="form-control"
+                    value={this.state.photo}
+                    onChange={this.handleFieldChange.bind(this)}
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
                 <div className="col-md-12 text-right" id="spin-area">
                   <button
                     type="submit"

@@ -9,13 +9,21 @@ class Student extends Component {
 
     return (
       <div className="student-card">
-        <Card style={{ width: "18rem" }}>
-          <Card.Img variant="top" src="holder.js/100px180" />
+        <Card style={{ width: "18rem", height: "22rem" }}>
+          <Card.Img
+            style={{ width: "18rem", height: "14rem" }}
+            variant="top"
+            src={card.photo}
+          />
           <Card.Body>
             <Card.Title>
               {card.firstName} {card.lastName}
             </Card.Title>
-            <Card.Text>{card.hobbies}</Card.Text>
+            <Card.Text>
+              DOB :{card.birthDate}
+              <br />
+              {card.hobbies}
+            </Card.Text>
             <Button
               className="edit_btns"
               variant="primary"

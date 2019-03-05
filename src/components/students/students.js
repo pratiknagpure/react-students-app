@@ -39,7 +39,7 @@ class Students extends Component {
   handleDelete(student) {
     let objIdToDelete = null;
     this.state.students.forEach(dat => {
-      if (dat._id == student._id) {
+      if (dat._id === student._id) {
         objIdToDelete = dat._id;
       }
     });
@@ -98,7 +98,7 @@ class Students extends Component {
   updateStudent(details) {
     let objIdToUpdate = null;
     this.state.students.forEach(dat => {
-      if (dat._id == details._id) {
+      if (dat._id === details._id) {
         objIdToUpdate = dat._id;
       }
     });
@@ -120,7 +120,7 @@ class Students extends Component {
 
   handleCreateEdit(details) {
     let actionType = this.state.actionType;
-    if (actionType == "Add") {
+    if (actionType === "Add") {
       this.addStudent(details);
     } else {
       this.updateStudent(details);
@@ -148,22 +148,9 @@ class Students extends Component {
 
           <div className="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <a className="nav-link" href="link">
-                  <span className="sr-only">(current)</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="hjk" />
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link disabled"
-                  href="kl"
-                  tabIndex="-1"
-                  aria-disabled="true"
-                />
-              </li>
+              <li className="nav-item active" />
+              <li className="nav-item" />
+              <li className="nav-item" />
             </ul>
             <form className="form-inline my-2 my-lg-0">
               <input

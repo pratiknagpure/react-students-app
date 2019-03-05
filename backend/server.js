@@ -24,30 +24,31 @@ const students = [
   {
     firstName: "Harvey",
     lastName: "Specter",
-    birthDate: "",
-    photo: "",
-    hobbies: ""
+    birthDate: "1972-01-22",
+    photo:
+      "https://www.hellomagazine.com/imagenes/film/2018060749261/suits-gabriel-macht-sex-and-the-city-20th-anniversary/0-242-950/Gabriel-Macht-t.jpg",
+    hobbies: "Boxing,Music and vinyl collecting,Cars,Whisky tasting/drinking"
   },
   {
     firstName: "Michel",
     lastName: "Ross",
-    birthDate: "",
-    photo: "",
-    hobbies: ""
+    birthDate: "1981-08-27",
+    photo: "http://www.gstatic.com/tv/thumb/persons/333660/333660_v9_ba.jpg",
+    hobbies: "Cycling, traveling"
   },
   {
     firstName: "Dona",
     lastName: "Paulsan",
-    birthDate: "",
-    photo: "",
-    hobbies: ""
+    birthDate: "1972-12-06",
+    photo: "http://www.gstatic.com/tv/thumb/persons/207737/207737_v9_ba.jpg",
+    hobbies: "Dressing, art and craft"
   },
   {
     firstName: "Rachel",
     lastName: "Zane",
-    birthDate: "",
-    photo: "",
-    hobbies: ""
+    birthDate: "1981-08-08",
+    photo: "http://www.gstatic.com/tv/thumb/persons/291403/291403_v9_bb.jpg",
+    hobbies: "Dressing, art and craft"
   }
 ];
 
